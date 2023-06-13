@@ -1,3 +1,5 @@
+Tech Challenge
+-
 Para executar o projeto é necessário ter o docker instalado para que uma imagem do postgres seja iniciada automaticamente.<BR>
 Para tudo funcionar, é preciso configure as seguintes variáveis de ambiente no seu sistema operacional.
 - POSTGRES_USER
