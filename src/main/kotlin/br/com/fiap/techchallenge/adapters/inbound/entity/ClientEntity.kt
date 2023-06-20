@@ -11,16 +11,16 @@ data class ClientEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null,
-    var name: String,
-    var cpf: String,
-    var email: String,
-    var phone: String,
-
+    val id: Int? = null,
     var code: String? = null,
+    val name: String,
+    val cpf: String,
+    val email: String,
+    val phone: String,
+    val active: Boolean = true,
 
     @CreationTimestamp
-    var creationDate: OffsetDateTime? = null
+    val creationDate: OffsetDateTime? = null
 ) {
     @PrePersist
     fun generateCode() {
@@ -28,12 +28,12 @@ data class ClientEntity(
     }
 
     fun toClient(): Client {
-        return Client(id!!, name, cpf, email, phone)
+        return Client(id!!, code!!, name, cpf, email, phone, active)
     }
 }
 
 fun Client.toEntity(): ClientEntity {
-    return ClientEntity(name = name, cpf = cpf, email = email, phone = phone)
+    return ClientEntity(code = code, name = name, cpf = cpf, email = email, phone = phone, active = active!!)
 }
 
 
