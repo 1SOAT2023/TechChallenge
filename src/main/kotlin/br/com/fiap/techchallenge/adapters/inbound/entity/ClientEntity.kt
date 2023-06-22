@@ -17,7 +17,7 @@ data class ClientEntity(
     val cpf: String,
     val email: String,
     val phone: String,
-    val active: Boolean = true,
+    private var active: Boolean = true,
 
     @CreationTimestamp
     val creationDate: OffsetDateTime? = null
@@ -29,6 +29,14 @@ data class ClientEntity(
 
     fun toClient(): Client {
         return Client(id!!, code!!, name, cpf, email, phone, active)
+    }
+
+    fun activate() {
+        active = true
+    }
+
+    fun deactivate() {
+        active = false
     }
 }
 

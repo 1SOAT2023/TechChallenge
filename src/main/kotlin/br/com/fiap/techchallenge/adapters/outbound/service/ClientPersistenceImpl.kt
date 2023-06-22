@@ -9,8 +9,32 @@ import org.springframework.stereotype.Service
 @Service
 class ClientPersistenceImpl(
     private val clientRepository: IClientRepository
-) : IClientPersistence{
+) : IClientPersistence {
     override fun save(client: Client): Client {
         return clientRepository.save(client.toEntity()).toClient()
+    }
+
+    override fun findByCode(code: String): Client? {
+        return clientRepository.findByCode(code)?.toClient()
+    }
+
+    override fun findAll(): List<Client> {
+        return clientRepository.findAll().map { it.toClient() }
+    }
+
+    override fun activate(code: String) {
+        val client = clientRepository.findByCode(code)
+        client?.let {
+            it.activate()
+            clientRepository.save(it)
+        }
+    }
+
+    override fun deactivate(code: String) {
+        val client = clientRepository.findByCode(code)
+        client?.let {
+            it.deactivate()
+            clientRepository.save(it)
+        }
     }
 }
