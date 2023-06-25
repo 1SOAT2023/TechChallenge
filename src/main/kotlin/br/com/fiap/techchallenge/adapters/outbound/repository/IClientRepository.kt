@@ -9,3 +9,6 @@ import org.springframework.stereotype.Repository
 interface ClientRepository : JpaRepository<ClientEntity, String>{
     fun findByCpf(cpf: String): ClientEntity?
 }
+interface IClientRepository : JpaRepository<ClientEntity, Int> {
+    fun findByCode(code: String): ClientEntity?
+}
