@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api")
 class ClientController(
-    private val createClientUseCase: ICreateClientUseCase,
-    private val identificarClientePorCPFUseCase: IIdentifyClientByCPFUseCase
+    private val identifyClientByCPFUseCase: IIdentifyClientByCPFUseCase,
     private val createClientUseCase: ICreateClientUseCase,
     private val findClientByCodeUseCase: IFindClientByCodeUseCase,
     private val findAllClientsUseCase: IFindAllClientsUseCase,
@@ -37,22 +36,23 @@ class ClientController(
     }
 
     @GetMapping("/v1/clients/{cpf}")
-    fun identificarPorCPF(@PathVariable cpf:String):ResponseEntity<ClientResponse?> {
+    fun identifyByCPF(@PathVariable cpf:String):ResponseEntity<ClientResponse?> {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(identificarClientePorCPFUseCase.identifyClientByCPF(cpf).toClientResponse())
+            return ResponseEntity.status(HttpStatus.OK).body(identifyClientByCPFUseCase.identifyClientByCPF(cpf).toClientResponse())
         } catch (e: ClientNotFoundException) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null)
         }
     }
 
-    @GetMapping("/v1/clients/{code}")
-    fun findByCode(
-        @RequestBody request: CreateClientRequest,
-        @PathVariable code: String
-    ): ResponseEntity<ClientResponse> {
-        val client = findClientByCodeUseCase.findByCode(code).toClientResponse()
-        return ResponseEntity.ok(client)
-    }
+//    Conflito de URI com a funcionalidade identifyByCPF
+//    @GetMapping("/v1/clients/{code}")
+//    fun findByCode(
+//        @RequestBody request: CreateClientRequest,
+//        @PathVariable code: String
+//    ): ResponseEntity<ClientResponse> {
+//        val client = findClientByCodeUseCase.findByCode(code).toClientResponse()
+//        return ResponseEntity.ok(client)
+//    }
 
     @GetMapping("/v1/clients")
     fun findAll(): ResponseEntity<List<ClientResponse>> {
