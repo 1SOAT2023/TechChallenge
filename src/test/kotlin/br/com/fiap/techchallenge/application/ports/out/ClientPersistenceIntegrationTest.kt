@@ -13,7 +13,7 @@ class ClientPersistenceIntegrationTest : BaseDatabaseIntegrationTest() {
 
     @Test
     fun `should save a client`() {
-        val clientToSave = Client(code = "1", name = "Luiz", cpf = "123123123", email = "luiz@email.com", phone = "21 9999999")
+        val clientToSave = Client(1, "Luiz", "123123123", "luiz@email.com", "21 9999999")
         val savedClient = clientPersistence.save(clientToSave)
 
         assertEquals(clientToSave, savedClient)
