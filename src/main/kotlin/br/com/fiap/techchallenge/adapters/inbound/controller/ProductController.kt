@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.*
 class ProductController(
     private val createProductUseCase: ICreateProductUseCase,
     private val findProductBySkuUseCase: IFindProductBySkuUseCase,
-    private val findByProductTypeUseCase: IFindProductsByProductTypeUseCase
+    private val findByProductTypeUseCase: IFindProductsByProductTypeUseCase,
+    private val statusProduct: IActivationProductUseCase
 ) {
     @PostMapping("/v1/products")
     fun create(@RequestBody request: CreateProductRequest): ResponseEntity<ProductResponse> {
@@ -34,8 +35,8 @@ class ProductController(
             .status(HttpStatus.OK)
             .body(findProductBySkuUseCase.findBySku(sku).toProductResponse())
 
-    @GetMapping("/v1/products/product-type/{productType}")
-    fun findByProductType(@PathVariable productType:String):ResponseEntity<List<ProductResponse?>> =
+    @GetMapping("/v1/products")
+    fun findByProductType(@RequestParam productType:String):ResponseEntity<List<ProductResponse?>> =
         ResponseEntity
             .status(HttpStatus.OK)
             .body(
@@ -43,6 +44,18 @@ class ProductController(
                     ProductType.valueOf(productType)
                 ).map{ it.toProductResponse() }
             )
+
+    @PutMapping("/v1/products/{sku}/enabled")
+    fun enabled(@PathVariable sku: String): ResponseEntity<Unit> {
+        statusProduct.enabled(sku)
+        return ResponseEntity.ok().build()
     }
+
+    @PutMapping("/v1/products/{sku}/disabled")
+    fun disabled(@PathVariable sku: String): ResponseEntity<Unit> {
+        statusProduct.disabled(sku)
+        return ResponseEntity.ok().build()
+    }
+}
 
 
