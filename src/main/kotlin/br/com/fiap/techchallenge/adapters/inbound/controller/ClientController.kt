@@ -44,15 +44,13 @@ class ClientController(
         }
     }
 
-//    Conflito de URI com a funcionalidade identifyByCPF
-//    @GetMapping("/v1/clients/{code}")
-//    fun findByCode(
-//        @RequestBody request: CreateClientRequest,
-//        @PathVariable code: String
-//    ): ResponseEntity<ClientResponse> {
-//        val client = findClientByCodeUseCase.findByCode(code).toClientResponse()
-//        return ResponseEntity.ok(client)
-//    }
+    @GetMapping("/v1/clients/code/{code}")
+    fun findByCode(
+        @PathVariable code: String
+    ): ResponseEntity<ClientResponse> {
+        val client = findClientByCodeUseCase.findByCode(code).toClientResponse()
+        return ResponseEntity.ok(client)
+    }
 
     @GetMapping("/v1/clients")
     fun findAll(): ResponseEntity<List<ClientResponse>> {
