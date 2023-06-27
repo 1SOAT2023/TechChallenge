@@ -26,7 +26,6 @@ class ProductPersistenceImpl(
             it.enabled()
             productRepository.save(it)
         }
-
     }
     override fun disabled(sku: String) {
         val product = productRepository.findBySku(sku)
