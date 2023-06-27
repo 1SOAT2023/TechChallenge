@@ -64,4 +64,5 @@ Para tudo funcionar, é preciso configure as seguintes variáveis de ambiente no
 - POSTGRES_PASSWORD
 - POSTGRES_DB
 
-As variáveis podem ser configuradas com os valores da sua preferência. Eles representam, respectivamente: O usuário do banco, a senha do usuário e o nome do banco da aplicação. Caso deseje utilizar alguma ferramenta para acessar o banco, utilize as credenciais fornecidas nas variáveis de ambiente.
+<p>As variáveis podem ser configuradas com os valores da sua preferência. Eles representam, respectivamente: O usuário do banco, a senha do usuário e o nome do banco da aplicação. Caso deseje utilizar alguma ferramenta para acessar o banco, utilize as credenciais fornecidas nas variáveis de ambiente.</p>
+<p>Para executar a aplicação, basta executar o comando "docker compose up" na pasta docker dentro do projeto. Caso opte por executar o projeto sem necessidade de baixar todo o repositório, basta realizar o download do arquivo [compose.yaml](https://raw.githubusercontent.com/1SOAT2023/TechChallenge/main/docker/compose.yaml)</p>
