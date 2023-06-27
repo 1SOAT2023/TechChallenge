@@ -8,7 +8,7 @@ class FindProductBySkuUseCaseImpl(
     private val productPersistence: IProductPersistence
 ) : IFindProductBySkuUseCase {
 
-    override fun findProductBySku(sku: String) =
+    override fun findBySku(sku: String) =
         productPersistence.findBySku(sku) ?:
         throw ProductNotFoundException("Sku's $sku Product not found.")
 }

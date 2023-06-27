@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.adapters.inbound.entity
 import br.com.fiap.techchallenge.application.core.domain.Product
 import br.com.fiap.techchallenge.application.core.enums.ProductType
 import jakarta.persistence.*
+import org.hibernate.Hibernate
 import org.hibernate.annotations.CreationTimestamp
 import java.time.OffsetDateTime
 import java.util.*
@@ -13,9 +14,9 @@ data class ProductEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int? = null,
-    var sku: String? = null,
+    var sku: String,
     val title: String,
-    val urlName: String,
+    val description: String,
     val productType: String,
     private var isActive: Boolean = true,
 
@@ -28,20 +29,35 @@ data class ProductEntity(
     }
 
     fun toProduct(): Product {
-        return Product(id!!, sku!!, title, urlName, ProductType.valueOf(productType), isActive)
+        return Product(id!!, sku, title, description, ProductType.valueOf(productType), isActive)
     }
 
-    fun activate() {
+    fun enabled() {
         isActive = true
     }
 
-    fun desactivate() {
+    fun desabled() {
         isActive = false
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+        other as ProductEntity
+
+        return id != null && id == other.id
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id )"
     }
 }
 
 fun Product.toEntity(): ProductEntity {
-    return ProductEntity(sku = sku, isActive = isActive!!, productType = productType.toString(), title = title, urlName = urlName)
+    return ProductEntity(sku = sku, isActive = isActive!!, productType = productType.toString(), title = title, description = description)
 }
 
 

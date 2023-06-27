@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.application.ports.out
 
 import br.com.fiap.techchallenge.application.core.domain.Product
 import br.com.fiap.techchallenge.application.core.enums.ProductType
+import org.springframework.stereotype.Service
 
 interface IProductPersistence {
     fun save (product: Product): Product
