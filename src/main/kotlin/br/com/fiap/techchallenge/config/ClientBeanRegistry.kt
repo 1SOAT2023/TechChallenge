@@ -1,16 +1,9 @@
 package br.com.fiap.techchallenge.config
 
-import br.com.fiap.techchallenge.application.core.usecase.ActivationClientUseCaseImpl
-import br.com.fiap.techchallenge.application.core.usecase.CreateClientUseCaseImpl
-import br.com.fiap.techchallenge.application.core.usecase.FindAllClientsUseCaseImpl
-import br.com.fiap.techchallenge.application.core.usecase.FindClientByCodeUseCaseImpl
-import br.com.fiap.techchallenge.application.ports.`in`.IActivationClientUseCase
-import br.com.fiap.techchallenge.application.core.usecase.IdentifyClientByCPFUseCaseImpl
-import br.com.fiap.techchallenge.application.ports.`in`.ICreateClientUseCase
-import br.com.fiap.techchallenge.application.ports.`in`.IFindAllClientsUseCase
-import br.com.fiap.techchallenge.application.ports.`in`.IFindClientByCodeUseCase
-import br.com.fiap.techchallenge.application.ports.`in`.IIdentifyClientByCPFUseCase
+import br.com.fiap.techchallenge.application.core.usecase.*
+import br.com.fiap.techchallenge.application.ports.`in`.*
 import br.com.fiap.techchallenge.application.ports.out.IClientPersistence
+import br.com.fiap.techchallenge.application.ports.out.IOrderPersistence
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -40,6 +33,11 @@ class ClientBeanRegistry {
     @Bean
     fun identifyClientUseCase(clientPersistence: IClientPersistence): IIdentifyClientByCPFUseCase {
         return IdentifyClientByCPFUseCaseImpl(clientPersistence)
+    }
+
+    @Bean
+    fun orderStatusManagerUseCase(orderPersistence: IOrderPersistence): IOrderStatusManagerUseCase {
+        return OrderStatusManagerUseCaseImpl(orderPersistence)
     }
 
 }

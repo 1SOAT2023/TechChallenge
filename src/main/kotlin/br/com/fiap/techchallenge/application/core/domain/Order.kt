@@ -8,8 +8,8 @@ data class Order(
     val orderCode: String? = null,
     val client: Client? = null,
     val products: List<Product>,
-    val status: OrderStatus? = null,
-    val statusUpdatedAt: LocalDateTime? = null,
+    var status: OrderStatus? = null,
+    var statusUpdatedAt: LocalDateTime? = null,
     val total: Double? = null,
     val additionalNotes: String? = null,
     val paymentMethod: String,
@@ -18,6 +18,21 @@ data class Order(
     fun isValid(): Boolean {
         return products.isNotEmpty()
 
+    }
+
+    fun updateToInPreparationStatus() {
+        status = OrderStatus.IN_PREPARATION
+        statusUpdatedAt = LocalDateTime.now()
+    }
+
+    fun updateToReadyStatus() {
+        status = OrderStatus.READY
+        statusUpdatedAt = LocalDateTime.now()
+    }
+
+    fun updateToFinishedStatus() {
+        status = OrderStatus.FINISHED
+        statusUpdatedAt = LocalDateTime.now()
     }
 
     override fun equals(other: Any?): Boolean {

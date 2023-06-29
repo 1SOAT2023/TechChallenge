@@ -52,7 +52,7 @@ class ClientController(
     @PutMapping("/v1/clients/{code}/activate")
     fun activate(@PathVariable code: String): ResponseEntity<Unit> {
         activeClientUseCase.activate(code)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 
     @DeleteMapping("/v1/clients/{code}/deactivate")
