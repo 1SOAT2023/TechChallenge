@@ -3,10 +3,10 @@ package br.com.fiap.techchallenge.application.core.usecase
 import br.com.fiap.techchallenge.application.core.domain.Client
 import br.com.fiap.techchallenge.application.core.exception.ClientNotFoundException
 import br.com.fiap.techchallenge.application.ports.`in`.IIdentifyClientByCPFUseCase
-import br.com.fiap.techchallenge.application.ports.out.IIdentifyClientPersistence
+import br.com.fiap.techchallenge.application.ports.out.IClientPersistence
 
 class IdentifyClientByCPFUseCaseImpl(
-    private val persistence: IIdentifyClientPersistence
+    private val persistence: IClientPersistence
 ): IIdentifyClientByCPFUseCase {
 
     override fun identifyClientByCPF(cpf: String): Client {

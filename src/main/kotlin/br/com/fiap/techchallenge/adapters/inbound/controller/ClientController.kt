@@ -4,19 +4,9 @@ import br.com.fiap.techchallenge.adapters.inbound.request.CreateClientRequest
 import br.com.fiap.techchallenge.adapters.inbound.response.ClientResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.toClientResponse
 import br.com.fiap.techchallenge.application.core.exception.ClientNotFoundException
-import br.com.fiap.techchallenge.application.ports.`in`.IActivationClientUseCase
-import br.com.fiap.techchallenge.application.ports.`in`.ICreateClientUseCase
-import br.com.fiap.techchallenge.application.ports.`in`.IIdentifyClientByCPFUseCase
-import br.com.fiap.techchallenge.application.ports.`in`.IFindAllClientsUseCase
-import br.com.fiap.techchallenge.application.ports.`in`.IFindClientByCodeUseCase
+import br.com.fiap.techchallenge.application.ports.`in`.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -36,11 +26,12 @@ class ClientController(
     }
 
     @GetMapping("/v1/clients/{cpf}")
-    fun identifyByCPF(@PathVariable cpf:String):ResponseEntity<ClientResponse?> {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(identifyClientByCPFUseCase.identifyClientByCPF(cpf).toClientResponse())
+    fun identifyByCPF(@PathVariable cpf: String): ResponseEntity<ClientResponse?> {
+        return try {
+            ResponseEntity.status(HttpStatus.OK)
+                .body(identifyClientByCPFUseCase.identifyClientByCPF(cpf).toClientResponse())
         } catch (e: ClientNotFoundException) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null)
+            ResponseEntity.status(HttpStatus.NO_CONTENT).body(null)
         }
     }
 

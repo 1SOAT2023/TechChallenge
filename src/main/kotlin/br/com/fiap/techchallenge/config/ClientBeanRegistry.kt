@@ -11,7 +11,6 @@ import br.com.fiap.techchallenge.application.ports.`in`.IFindAllClientsUseCase
 import br.com.fiap.techchallenge.application.ports.`in`.IFindClientByCodeUseCase
 import br.com.fiap.techchallenge.application.ports.`in`.IIdentifyClientByCPFUseCase
 import br.com.fiap.techchallenge.application.ports.out.IClientPersistence
-import br.com.fiap.techchallenge.application.ports.out.IIdentifyClientPersistence
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -39,8 +38,8 @@ class ClientBeanRegistry {
     }
 
     @Bean
-    fun identifyClientUseCase(iIdentifyClientPersistence: IIdentifyClientPersistence): IIdentifyClientByCPFUseCase {
-        return IdentifyClientByCPFUseCaseImpl(iIdentifyClientPersistence)
+    fun identifyClientUseCase(clientPersistence: IClientPersistence): IIdentifyClientByCPFUseCase {
+        return IdentifyClientByCPFUseCaseImpl(clientPersistence)
     }
 
 }

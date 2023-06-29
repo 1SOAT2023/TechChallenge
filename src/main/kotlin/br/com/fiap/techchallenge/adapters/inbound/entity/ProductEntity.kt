@@ -57,7 +57,13 @@ data class ProductEntity(
 }
 
 fun Product.toEntity(): ProductEntity {
-    return ProductEntity(sku = sku, isActive = isActive!!, productType = productType.toString(), title = title, description = description)
+    return ProductEntity(
+        id = id,
+        sku = sku,
+        isActive = isActive!!,
+        productType = productType.toString(),
+        title = title,
+        description = description)
 }
 
 

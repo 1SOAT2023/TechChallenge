@@ -5,18 +5,19 @@ import java.time.LocalDateTime
 
 data class Order(
     val id: Int? = null,
-    val orderCode: String,
-    val client: Client,
+    val orderCode: String? = null,
+    val client: Client? = null,
     val products: List<Product>,
-    val status: OrderStatus,
-    val statusUpdatedAt: LocalDateTime,
-    val total: Double,
+    val status: OrderStatus? = null,
+    val statusUpdatedAt: LocalDateTime? = null,
+    val total: Double? = null,
     val additionalNotes: String? = null,
     val paymentMethod: String,
-    val orderDate: LocalDateTime
+    val orderDate: LocalDateTime? = null
 ) {
     fun isValid(): Boolean {
         return products.isNotEmpty()
+
     }
 
     override fun equals(other: Any?): Boolean {

@@ -30,7 +30,7 @@ class ProductController(
     }
 
     @GetMapping("/v1/products/{sku}")
-    fun findfyBySKU(@PathVariable sku:String):ResponseEntity<ProductResponse?> =
+    fun findBySKU(@PathVariable sku:String):ResponseEntity<ProductResponse?> =
         ResponseEntity
             .status(HttpStatus.OK)
             .body(findProductBySkuUseCase.findBySku(sku).toProductResponse())

@@ -38,10 +38,50 @@ data class ClientEntity(
     fun deactivate() {
         active = false
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ClientEntity
+
+        if (id != other.id) return false
+        if (code != other.code) return false
+        if (name != other.name) return false
+        if (cpf != other.cpf) return false
+        if (email != other.email) return false
+        if (phone != other.phone) return false
+        if (active != other.active) return false
+        return creationDate == other.creationDate
+    }
+
+    override fun hashCode(): Int {
+        var result = id ?: 0
+        result = 31 * result + (code?.hashCode() ?: 0)
+        result = 31 * result + name.hashCode()
+        result = 31 * result + cpf.hashCode()
+        result = 31 * result + email.hashCode()
+        result = 31 * result + phone.hashCode()
+        result = 31 * result + active.hashCode()
+        result = 31 * result + (creationDate?.hashCode() ?: 0)
+        return result
+    }
+
+    override fun toString(): String {
+        return "ClientEntity(id=$id, code=$code, name='$name', cpf='$cpf', email='$email', phone='$phone', active=$active, creationDate=$creationDate)"
+    }
+
 }
 
 fun Client.toEntity(): ClientEntity {
-    return ClientEntity(code = code, name = name, cpf = cpf, email = email, phone = phone, active = active!!)
+    return ClientEntity(
+        id = id,
+        code = code,
+        name = name,
+        cpf = cpf,
+        email = email,
+        phone = phone,
+        active = active!!)
 }
 
 
