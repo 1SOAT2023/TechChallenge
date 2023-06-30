@@ -37,4 +37,8 @@ class ClientPersistenceImpl(
             clientRepository.save(it)
         }
     }
+
+    override fun findByCpf(cpf: String): Client? {
+        return clientRepository.findByCpf(cpf)?.toClient()
+    }
 }

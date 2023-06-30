@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.application.core.domain
 
 data class Client(
-    val id: Int? = null,
+    var id: Int? = null,
     val code: String? = null,
     val name: String,
     val cpf: String,
@@ -12,7 +12,6 @@ data class Client(
     fun isValid(): Boolean {
         return name.isNotBlank()
     }
-
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

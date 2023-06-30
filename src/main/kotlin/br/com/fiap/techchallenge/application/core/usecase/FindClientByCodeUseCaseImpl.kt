@@ -10,7 +10,7 @@ class FindClientByCodeUseCaseImpl(
 ) : IFindClientByCodeUseCase {
 
     override fun findByCode(code: String): Client {
-        return clientPersistence.findByCode(code)
-            ?: throw ClientNotFoundException("Client with code: $code not found")
+        return clientPersistence.findByCode(code) ?:
+            throw ClientNotFoundException("Client with code: $code not found")
     }
 }
