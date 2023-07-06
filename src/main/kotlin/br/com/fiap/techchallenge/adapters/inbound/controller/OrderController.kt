@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.adapters.inbound.controller
 import br.com.fiap.techchallenge.adapters.inbound.request.CreateOrderRequest
 import br.com.fiap.techchallenge.adapters.inbound.response.OrderResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.toOrderResponse
+import br.com.fiap.techchallenge.application.core.enums.OrderStatus
 import br.com.fiap.techchallenge.application.ports.`in`.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,12 +21,19 @@ class OrderController(
 ) {
 
     @GetMapping("/v1/orders")
-    fun findByProductType(): ResponseEntity<List<OrderResponse?>> =
+    fun findAllOrders(): ResponseEntity<List<OrderResponse?>> =
         ResponseEntity
             .status(HttpStatus.OK)
             .body(
                 findAllOrdersUseCase.findAll().map { it.toOrderResponse() }
             )
+
+    @GetMapping("/v1/orders/checkout")
+    fun checkout(): ResponseEntity<List<OrderResponse?>> {
+        val orders = findAllOrdersUseCase.findAll().filter { it.status != OrderStatus.FINISHED }
+        val orderResponses = orders.map { it.toOrderResponse() }
+        return ResponseEntity.status(HttpStatus.OK).body(orderResponses)
+    }
 
     @PostMapping("/v1/orders")
     fun create(@RequestBody request: CreateOrderRequest): ResponseEntity<OrderResponse> {
