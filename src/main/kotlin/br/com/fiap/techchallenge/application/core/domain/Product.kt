@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.application.core.domain
 
 import br.com.fiap.techchallenge.application.core.enums.ProductType
+import java.math.BigDecimal
 
 data class Product(
     val id: Int? = null,
@@ -8,6 +9,7 @@ data class Product(
     val title: String,
     val description: String,
     val productType: ProductType,
+    val value: BigDecimal,
     val isActive: Boolean? = true
 ) {
     fun isValid(): Boolean {
@@ -15,7 +17,7 @@ data class Product(
     }
 
     override fun toString(): String {
-        return "Product(id=$id, sku=$sku, title='$title', description ='$description', productType=$productType, isActive=$isActive)"
+        return "Product(id=$id, sku=$sku, title='$title', description ='$description', productType=$productType, isActive=$isActive, value=$value)"
     }
 
     override fun equals(other: Any?): Boolean {
