@@ -5,6 +5,7 @@ import br.com.fiap.techchallenge.application.core.enums.ProductType
 import jakarta.persistence.*
 import org.hibernate.Hibernate
 import org.hibernate.annotations.CreationTimestamp
+import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.*
 
@@ -18,6 +19,7 @@ data class ProductEntity(
     val title: String,
     val description: String,
     val productType: String,
+    val value: BigDecimal,
     private var isActive: Boolean = true,
 
     @CreationTimestamp
@@ -29,7 +31,7 @@ data class ProductEntity(
     }
 
     fun toProduct(): Product {
-        return Product(id!!, sku, title, description, ProductType.valueOf(productType), isActive)
+        return Product(id!!, sku, title, description, ProductType.valueOf(productType), value,isActive)
     }
 
     fun enabled() {
@@ -63,6 +65,7 @@ fun Product.toEntity(): ProductEntity {
         isActive = isActive!!,
         productType = productType.toString(),
         title = title,
+        value = value,
         description = description)
 }
 
