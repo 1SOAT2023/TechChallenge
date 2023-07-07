@@ -4,6 +4,7 @@ import br.com.fiap.techchallenge.application.core.domain.Order
 import br.com.fiap.techchallenge.application.core.enums.OrderStatus
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
+import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.*
 
@@ -15,11 +16,11 @@ data class OrderEntity(
     val id: Int? = null,
     var orderCode: String? = null,
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "client_id")
     val client: ClientEntity? = null,
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     val products: List<ProductEntity>,
 
     val status: String = OrderStatus.RECEIVED.toString(),
@@ -27,7 +28,7 @@ data class OrderEntity(
     @CreationTimestamp
     val statusUpdatedAt: LocalDateTime? = null,
 
-    val total: Double,
+    var total: BigDecimal? = null,
     val additionalNotes: String? = null,
     val paymentMethod: String,
 
@@ -35,14 +36,15 @@ data class OrderEntity(
     val orderDate: LocalDateTime? = null
 ) {
     @PrePersist
-    fun generateOrderCode() {
+    fun generate() {
         orderCode = UUID.randomUUID().toString()
+        total = products.map { it.value }.reduce { acc, bigDecimal -> acc + bigDecimal }
     }
 
     fun toOrder(): Order {
         return Order(
             id!!,
-            orderCode!!,
+            orderCode,
             client?.toClient(),
             products.map { it.toProduct() },
             OrderStatus.valueOf(status),
@@ -101,7 +103,7 @@ fun Order.toEntity(): OrderEntity {
         products = products.map { it.toEntity() },
         status = status.toString(),
         statusUpdatedAt = statusUpdatedAt,
-        total = total!!,
+        total = total,
         additionalNotes = additionalNotes,
         paymentMethod = paymentMethod,
         orderDate = orderDate

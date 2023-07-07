@@ -10,7 +10,6 @@ data class CreateOrderRequest(
 
     val clientCode: String? = null,
     val productsSku: List<String>,
-    val total: Double,
     val additionalNotes: String? = null,
     val paymentMethod: String,
 ) {
@@ -20,7 +19,6 @@ data class CreateOrderRequest(
             client = client,
             products = products,
             status = OrderStatus.RECEIVED,
-            total = total,
             additionalNotes = additionalNotes,
             paymentMethod = paymentMethod
         )
