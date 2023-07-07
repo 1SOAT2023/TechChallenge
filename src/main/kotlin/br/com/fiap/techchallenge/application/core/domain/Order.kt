@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.application.core.domain
 
 import br.com.fiap.techchallenge.application.core.enums.OrderStatus
+import java.math.BigDecimal
 import java.time.LocalDateTime
 
 data class Order(
@@ -10,7 +11,7 @@ data class Order(
     val products: List<Product>,
     var status: OrderStatus? = null,
     var statusUpdatedAt: LocalDateTime? = null,
-    val total: Double? = null,
+    val total: BigDecimal? = null,
     val additionalNotes: String? = null,
     val paymentMethod: String,
     val orderDate: LocalDateTime? = null
