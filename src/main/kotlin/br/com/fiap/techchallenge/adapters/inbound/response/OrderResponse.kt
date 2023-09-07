@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class OrderResponse(
-    var orderCode: String,
+    var orderId: String,
     val client: ClientResponse? = null,
     val products: List<ProductResponse>,
     val status: OrderStatus = OrderStatus.RECEIVED,
@@ -19,8 +19,11 @@ data class OrderResponse(
     val orderDate: LocalDateTime? = null
 )
 
+data class OrderCreateResponse(
+    var orderId: String
+)
 fun Order.toOrderResponse() = OrderResponse(
-    orderCode = orderCode!!,
+    orderId = orderId!!,
     client = client?.toClientResponse(),
     products = products.map { it.toProductResponse() },
     status = status!!,

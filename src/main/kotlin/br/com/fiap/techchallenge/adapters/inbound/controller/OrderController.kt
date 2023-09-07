@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.adapters.inbound.controller
 
 import br.com.fiap.techchallenge.adapters.inbound.request.CreateOrderRequest
+import br.com.fiap.techchallenge.adapters.inbound.response.OrderCreateResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.OrderResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.toOrderResponse
 import br.com.fiap.techchallenge.application.core.enums.OrderStatus
@@ -36,12 +37,12 @@ class OrderController(
     }
 
     @PostMapping("/v1/orders")
-    fun create(@RequestBody request: CreateOrderRequest): ResponseEntity<OrderResponse> {
+    fun create(@RequestBody request: CreateOrderRequest): ResponseEntity<OrderCreateResponse> {
         val client = request.clientCode?.let { findClientByCodeUseCase.findByCode(it) }
         val products = request.productsSku.map { findProductBySkuUseCase.findBySku(it) }
 
         val order = createOrdersUseCase.save(request.toOrder(client = client, products = products)).toOrderResponse()
-        return ResponseEntity.status(HttpStatus.CREATED).body(order)
+        return ResponseEntity.status(HttpStatus.CREATED).body(OrderCreateResponse(order.orderId))
     }
 
     @PutMapping("/v1/orders/{orderCode}/in-preparation")

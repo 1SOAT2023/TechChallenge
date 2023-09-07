@@ -98,7 +98,7 @@ data class OrderEntity(
 fun Order.toEntity(): OrderEntity {
     return OrderEntity(
         id = id,
-        orderCode = orderCode,
+        orderCode = orderId,
         client = client?.toEntity(),
         products = products.map { it.toEntity() },
         status = status.toString(),

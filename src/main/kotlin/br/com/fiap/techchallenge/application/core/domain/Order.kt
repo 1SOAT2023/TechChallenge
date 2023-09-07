@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 data class Order(
     val id: Int? = null,
-    val orderCode: String? = null,
+    val orderId: String? = null,
     val client: Client? = null,
     val products: List<Product>,
     var status: OrderStatus? = null,
@@ -43,7 +43,7 @@ data class Order(
         other as Order
 
         if (id != other.id) return false
-        if (orderCode != other.orderCode) return false
+        if (orderId != other.orderId) return false
         if (client != other.client) return false
         if (products != other.products) return false
         if (status != other.status) return false
@@ -56,7 +56,7 @@ data class Order(
 
     override fun hashCode(): Int {
         var result = id ?: 0
-        result = 31 * result + orderCode.hashCode()
+        result = 31 * result + orderId.hashCode()
         result = 31 * result + client.hashCode()
         result = 31 * result + products.hashCode()
         result = 31 * result + status.hashCode()
@@ -69,7 +69,7 @@ data class Order(
     }
 
     override fun toString(): String {
-        return "Order(id=$id, orderCode='$orderCode', client=$client, products=$products, status=$status, statusUpdatedAt=$statusUpdatedAt, total=$total, additionalNotes=$additionalNotes, paymentMethod='$paymentMethod', orderDate=$orderDate)"
+        return "Order(id=$id, orderId='$orderId', client=$client, products=$products, status=$status, statusUpdatedAt=$statusUpdatedAt, total=$total, additionalNotes=$additionalNotes, paymentMethod='$paymentMethod', orderDate=$orderDate)"
     }
 
 }
