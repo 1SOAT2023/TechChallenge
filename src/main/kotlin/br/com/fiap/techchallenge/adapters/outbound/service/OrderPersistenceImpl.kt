@@ -17,8 +17,8 @@ class OrderPersistenceImpl(
     override fun save(order: Order) =
         orderRepository.save(order.toEntity()).toOrder()
 
-    override fun updateToInPreparationStatus(orderCode: String) {
-        val orderEntity = orderRepository.findByOrderCode(orderCode)
+    override fun updateToInPreparationStatus(orderId: String) {
+        val orderEntity = orderRepository.findByOrderId(orderId)
         orderEntity?.let {
             val order = it.toOrder()
             order.updateToInPreparationStatus()
@@ -26,8 +26,8 @@ class OrderPersistenceImpl(
         }
     }
 
-    override fun updateToReadyStatus(orderCode: String) {
-        val orderEntity = orderRepository.findByOrderCode(orderCode)
+    override fun updateToReadyStatus(orderId: String) {
+        val orderEntity = orderRepository.findByOrderId(orderId)
         orderEntity?.let {
             val order = it.toOrder()
             order.updateToReadyStatus()
@@ -35,8 +35,8 @@ class OrderPersistenceImpl(
         }
     }
 
-    override fun updateToFinishedStatus(orderCode: String) {
-        val orderEntity = orderRepository.findByOrderCode(orderCode)
+    override fun updateToFinishedStatus(orderId: String) {
+        val orderEntity = orderRepository.findByOrderId(orderId)
         orderEntity?.let {
             val order = it.toOrder()
             order.updateToFinishedStatus()
@@ -44,7 +44,7 @@ class OrderPersistenceImpl(
         }
     }
 
-    override fun findByCode(orderCode: String): Order? =
-        orderRepository.findByOrderCode(orderCode)?.toOrder()
+    override fun findByCode(orderId: String): Order? =
+        orderRepository.findByOrderId(orderId)?.toOrder()
 
 }

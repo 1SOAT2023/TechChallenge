@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.adapters.inbound.entity
 
 import br.com.fiap.techchallenge.application.core.domain.Order
 import br.com.fiap.techchallenge.application.core.enums.OrderStatus
+import br.com.fiap.techchallenge.application.core.enums.PaymentMethod
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import java.math.BigDecimal
@@ -14,7 +15,7 @@ data class OrderEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int? = null,
-    var orderCode: String? = null,
+    var orderId: String? = null,
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -30,6 +31,7 @@ data class OrderEntity(
 
     var total: BigDecimal? = null,
     val additionalNotes: String? = null,
+
     val paymentMethod: String,
 
     @CreationTimestamp
@@ -37,21 +39,21 @@ data class OrderEntity(
 ) {
     @PrePersist
     fun generate() {
-        orderCode = UUID.randomUUID().toString()
+        orderId = UUID.randomUUID().toString()
         total = products.map { it.value }.reduce { acc, bigDecimal -> acc + bigDecimal }
     }
 
     fun toOrder(): Order {
         return Order(
             id!!,
-            orderCode,
+            orderId,
             client?.toClient(),
             products.map { it.toProduct() },
             OrderStatus.valueOf(status),
             statusUpdatedAt!!,
             total,
             additionalNotes,
-            paymentMethod,
+            PaymentMethod.valueOf(paymentMethod),
             orderDate!!
         )
     }
@@ -63,7 +65,7 @@ data class OrderEntity(
         other as OrderEntity
 
         if (id != other.id) return false
-        if (orderCode != other.orderCode) return false
+        if (orderId != other.orderId) return false
         if (client != other.client) return false
         if (products != other.products) return false
         if (status != other.status) return false
@@ -76,7 +78,7 @@ data class OrderEntity(
 
     override fun hashCode(): Int {
         var result = id ?: 0
-        result = 31 * result + orderCode.hashCode()
+        result = 31 * result + orderId.hashCode()
         result = 31 * result + client.hashCode()
         result = 31 * result + products.hashCode()
         result = 31 * result + status.hashCode()
@@ -89,7 +91,7 @@ data class OrderEntity(
     }
 
     override fun toString(): String {
-        return "OrderEntity(id=$id, orderCode='$orderCode', client=$client, products=$products, status=$status, statusUpdatedAt=$statusUpdatedAt, total=$total, additionalNotes=$additionalNotes, paymentMethod='$paymentMethod', orderDate=$orderDate)"
+        return "OrderEntity(id=$id, orderId='$orderId', client=$client, products=$products, status=$status, statusUpdatedAt=$statusUpdatedAt, total=$total, additionalNotes=$additionalNotes, paymentMethod='$paymentMethod', orderDate=$orderDate)"
     }
 
 
@@ -98,14 +100,14 @@ data class OrderEntity(
 fun Order.toEntity(): OrderEntity {
     return OrderEntity(
         id = id,
-        orderCode = orderCode,
+        orderId = orderId,
         client = client?.toEntity(),
         products = products.map { it.toEntity() },
         status = status.toString(),
         statusUpdatedAt = statusUpdatedAt,
         total = total,
         additionalNotes = additionalNotes,
-        paymentMethod = paymentMethod,
+        paymentMethod = paymentMethod.toString(),
         orderDate = orderDate
     )
 }

@@ -7,15 +7,15 @@ class OrderStatusManagerUseCaseImpl(
     private val orderPersistence: IOrderPersistence
 ) : IOrderStatusManagerUseCase {
 
-    override fun updateToInPreparationStatus(orderCode: String)  =
-        orderPersistence.updateToInPreparationStatus(orderCode)
+    override fun updateToInPreparationStatus(orderId: String)  =
+        orderPersistence.updateToInPreparationStatus(orderId)
 
 
-    override fun updateToReadyStatus(orderCode: String) =
-        orderPersistence.updateToReadyStatus(orderCode)
+    override fun updateToReadyStatus(orderId: String) =
+        orderPersistence.updateToReadyStatus(orderId)
 
 
-    override fun updateToFinishedStatus(orderCode: String) =
-        orderPersistence.updateToFinishedStatus(orderCode)
+    override fun updateToFinishedStatus(orderId: String) =
+        orderPersistence.updateToFinishedStatus(orderId)
 
 }
