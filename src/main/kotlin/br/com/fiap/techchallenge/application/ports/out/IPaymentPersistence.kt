@@ -6,7 +6,6 @@ interface IPaymentPersistence {
     fun findAll(): List<Payment>
     fun findByPaymentId(paymentId: String): Payment?
     fun save(payment: Payment): Payment
-
-    fun updateToApproveStatus(paymentId: String)
-    fun updateToRecusedStatus(paymentId: String)
+    fun updateToApprovedStatus(paymentId: String)
+    fun updateToRefusedStatus(paymentId: String)
 }

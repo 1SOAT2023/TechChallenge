@@ -24,4 +24,8 @@ class PaymentBeanRegistry {
         return FindPaymentByIdUseCaseImpl(paymentPersistence)
     }
 
+    @Bean
+    fun paymentStatusManagerUseCase(paymentPersistence: IPaymentPersistence): IPaymentStatusManagerUseCase {
+        return PaymentStatusManagerUseCaseImpl(paymentPersistence)
+    }
 }

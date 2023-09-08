@@ -32,7 +32,7 @@ class OrderController(
 
     @GetMapping("/v1/orders/checkout")
     fun checkout(): ResponseEntity<List<OrderResponse?>> {
-        val orders = findAllOrdersUseCase.findAll().filter { it.status != OrderStatus.FINISHED }
+        val orders = findAllOrdersUseCase.findAll().filter { it.status != OrderStatus.FINISHED }.sortedBy { it.status?.index }
         val orderResponses = orders.map { it.toOrderResponse() }
         return ResponseEntity.status(HttpStatus.OK).body(orderResponses)
     }

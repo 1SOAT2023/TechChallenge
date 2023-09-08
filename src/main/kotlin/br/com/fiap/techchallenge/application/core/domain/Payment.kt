@@ -1,9 +1,7 @@
 package br.com.fiap.techchallenge.application.core.domain
 
-import br.com.fiap.techchallenge.application.core.enums.OrderStatus
 import br.com.fiap.techchallenge.application.core.enums.PaymentMethod
 import br.com.fiap.techchallenge.application.core.enums.PaymentStatus
-import java.math.BigDecimal
 import java.time.LocalDateTime
 
 data class Payment(
@@ -20,8 +18,8 @@ data class Payment(
         statusUpdatedAt = LocalDateTime.now()
     }
 
-    fun updateToRecusedStatus() {
-        status = PaymentStatus.RECUSED
+    fun updateToRefusedStatus() {
+        status = PaymentStatus.REFUSED
         statusUpdatedAt = LocalDateTime.now()
     }
 

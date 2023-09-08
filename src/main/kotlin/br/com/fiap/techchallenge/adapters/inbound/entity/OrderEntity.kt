@@ -24,7 +24,7 @@ data class OrderEntity(
     @ManyToMany(fetch = FetchType.EAGER)
     val products: List<ProductEntity>,
 
-    val status: String = OrderStatus.WAITING_PAYMENT.toString(),
+    val status: String = OrderStatus.RECEIVED.toString(),
 
     @CreationTimestamp
     val statusUpdatedAt: LocalDateTime? = null,
