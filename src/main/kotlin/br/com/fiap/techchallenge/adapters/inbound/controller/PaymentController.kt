@@ -3,9 +3,7 @@ package br.com.fiap.techchallenge.adapters.inbound.controller
 import br.com.fiap.techchallenge.adapters.inbound.request.CreatePaymentRequest
 import br.com.fiap.techchallenge.adapters.inbound.request.CreatePaymentResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.PaymentResponse
-import br.com.fiap.techchallenge.adapters.inbound.response.toOrderResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.toPaymentResponse
-import br.com.fiap.techchallenge.application.core.usecase.FindAllPaymentsUseCaseImpl
 import br.com.fiap.techchallenge.application.ports.`in`.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

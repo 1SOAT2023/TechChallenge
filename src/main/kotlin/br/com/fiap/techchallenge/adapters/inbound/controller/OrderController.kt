@@ -4,7 +4,6 @@ import br.com.fiap.techchallenge.adapters.inbound.request.CreateOrderRequest
 import br.com.fiap.techchallenge.adapters.inbound.response.OrderCreateResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.OrderResponse
 import br.com.fiap.techchallenge.adapters.inbound.response.toOrderResponse
-import br.com.fiap.techchallenge.application.core.domain.Payment
 import br.com.fiap.techchallenge.application.core.enums.OrderStatus
 import br.com.fiap.techchallenge.application.ports.`in`.*
 import org.springframework.http.HttpStatus
