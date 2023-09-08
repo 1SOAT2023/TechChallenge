@@ -8,7 +8,7 @@ class FindOrderByCodeUseCaseImpl(
     private val orderPersistence: IOrderPersistence
 ) : IFindOrderByCodeUseCase {
 
-    override fun findByCode(orderCode: String) =
-        orderPersistence.findByCode(orderCode) ?:
-            throw OrderNotFoundException("Order with code: $orderCode not found")
+    override fun findByOrderId(orderId: String) =
+        orderPersistence.findByCode(orderId) ?:
+            throw OrderNotFoundException("Order with code: $orderId not found")
 }

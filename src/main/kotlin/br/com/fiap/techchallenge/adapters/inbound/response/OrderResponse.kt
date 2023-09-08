@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.adapters.inbound.response
 
 import br.com.fiap.techchallenge.application.core.domain.Order
 import br.com.fiap.techchallenge.application.core.enums.OrderStatus
+import br.com.fiap.techchallenge.application.core.enums.PaymentMethod
 import com.fasterxml.jackson.annotation.JsonInclude
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -15,7 +16,7 @@ data class OrderResponse(
     val statusUpdatedAt: LocalDateTime? = null,
     val total: BigDecimal,
     val additionalNotes: String? = null,
-    val paymentMethod: String,
+    val paymentMethod: PaymentMethod,
     val orderDate: LocalDateTime? = null
 )
 

@@ -7,6 +7,7 @@ import br.com.fiap.techchallenge.application.ports.`in`.ICreateOrderUseCase
 import br.com.fiap.techchallenge.application.ports.`in`.IFindAllOrdersUseCase
 import br.com.fiap.techchallenge.application.ports.`in`.IFindOrderByCodeUseCase
 import br.com.fiap.techchallenge.application.ports.out.IOrderPersistence
+import br.com.fiap.techchallenge.application.ports.out.IPaymentPersistence
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -19,8 +20,9 @@ class OrderBeanRegistry {
     }
 
     @Bean
-    fun createOrderUseCase(orderPersistence: IOrderPersistence): ICreateOrderUseCase {
-        return CreateOrderUseCaseImpl(orderPersistence)
+    fun createOrderUseCase(orderPersistence: IOrderPersistence, paymentPersistence: IPaymentPersistence)
+    : ICreateOrderUseCase {
+        return CreateOrderUseCaseImpl(orderPersistence, paymentPersistence)
     }
 
     @Bean

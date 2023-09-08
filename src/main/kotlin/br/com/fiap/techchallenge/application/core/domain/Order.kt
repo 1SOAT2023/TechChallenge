@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.application.core.domain
 
 import br.com.fiap.techchallenge.application.core.enums.OrderStatus
+import br.com.fiap.techchallenge.application.core.enums.PaymentMethod
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -13,7 +14,7 @@ data class Order(
     var statusUpdatedAt: LocalDateTime? = null,
     val total: BigDecimal? = null,
     val additionalNotes: String? = null,
-    val paymentMethod: String,
+    val paymentMethod: PaymentMethod,
     val orderDate: LocalDateTime? = null
 ) {
     fun isValid(): Boolean {
